@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Spring Core Container Configuration File
+    This file defines all beans managed by the Spring IoC container.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        ===============================
+        Laptop Bean Definitions
+        ===============================
+
+        These are dependency beans that can be injected
+        into other beans (like Alien).
+    -->
+
+    <!-- Primary Laptop bean -->
+    <bean id="laptop" class="com.practice.Laptop"/>
+
+    <!-- Another Laptop bean (for testing multiple bean scenarios) -->
+    <bean id="laptopBackup" class="com.practice.Laptop"/>
+
+
+    <!--
+        ===============================
+        Alien Bean Definition
+        ===============================
+
+        autowire="byName" means:
+        - Spring will match property name in Alien class
+          with bean id defined in this XML.
+
+        IMPORTANT:
+        If Alien has:
+            private Laptop laptop;
+
+        Then bean id MUST be:
+            id="laptop"
+    -->
+
+    <bean id="alien1"
+          class="com.practice.Alien"
+          autowire="byName">
+
+        <!--
+            Primitive values (int, String, etc.)
+            must be injected using <property> or <constructor-arg>.
+
+            ref  -> used for non-primitive types (object reference)
+            value -> used for primitive or String values
+        -->
+
+        <!-- Injecting primitive property -->
+        <property name="age" value="33"/>
+
+    </bean>
+
+</beans>
